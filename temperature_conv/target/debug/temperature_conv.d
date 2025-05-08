@@ -1,0 +1,1 @@
+/home/ahabchi/Desktop/piscine-rust/temperature_conv/target/debug/temperature_conv: /home/ahabchi/Desktop/piscine-rust/temperature_conv/src/lib.rs /home/ahabchi/Desktop/piscine-rust/temperature_conv/src/main.rs
