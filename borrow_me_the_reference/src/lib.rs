@@ -18,21 +18,21 @@ pub fn delete_and_backspace(s: &mut String) {
     }  
     if s.len() > 0 {
         let mut i = s.len()-1;
-        loop { 
+        while s.len()>0 { 
             let ch = s.chars().nth(i).unwrap();
-            if ch=='+'{
+           if ch=='+'{
                 s.remove(i);
                 if s.len()==0{
                     break;
                 }
-                if i < s.len() && i>=0 {
+                if i<s.len(){
                     s.remove(i);
                 }
-            }
-            if i == 0 || i>=s.len() {
-                break;
-            }
-            i-=1;
+           }
+           if i==0{
+            break;
+           }
+           i-=1;
         }
     }
 }
