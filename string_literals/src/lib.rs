@@ -24,7 +24,7 @@ pub fn contains(v: &str, pat: &str) -> bool {
 }
 
 pub fn split_at(v: &str, index: usize) -> (&str, &str) {
-   v.split_at(index)
+  (&v[0..index],&v[index..v.len()])
 }
 
 pub fn find(v: &str, pat: char) -> usize {
