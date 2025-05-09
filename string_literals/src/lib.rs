@@ -3,12 +3,7 @@ pub fn is_empty(v: &str) -> bool {
 }
 
 pub fn is_ascii(v: &str) -> bool {
-    for ch in v.bytes(){
-        if ch>255{
-            return false;
-        }
-    }
-    true
+    v.is_ascii()
 }
 
 pub fn contains(v: &str, pat: &str) -> bool {
