@@ -6,7 +6,7 @@ pub fn str_function(a: String) -> (String, String) {
     let mut ss:String = String::new();
     for num in a.split(' '){
         let number: i32 = num.parse().expect("");
-        let b=format!("{:.7}",(number as f32).exp());
+        let b=format!("{}",(number as f64).exp());
         ss.push_str(&b.to_owned());
         ss.push(' ');
     }

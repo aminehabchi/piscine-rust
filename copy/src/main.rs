@@ -1,7 +1,7 @@
 use copy::*;
 
 fn main() {
-    let a = "1 2 4 5 6".to_owned();
+    let a = "1 2 4".to_owned();
     let b = vec![1, 2, 4, 5];
     let c = 0;
 
