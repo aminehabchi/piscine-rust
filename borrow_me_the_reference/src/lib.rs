@@ -1,4 +1,3 @@
-// "bpp--o+er+++sskroi-++lcw"
 pub fn delete_and_backspace(s: &mut String) {
     let mut i = 0;
    
@@ -7,7 +6,7 @@ pub fn delete_and_backspace(s: &mut String) {
         if ch=='-' && i>0{
             s.remove(i);
             if s.len()==0{
-                break
+                break;
             }
             s.remove(i-1);
             if i>0{
@@ -17,19 +16,25 @@ pub fn delete_and_backspace(s: &mut String) {
             i+=1;
         }
     }  
-
-    i=s.len()-1;
-    while i > 0 {
-        let ch = s.chars().nth(i).unwrap();
-        if ch=='+'{
-            s.remove(i);
-            if s.len()==0{
-                break
+    if s.len() > 0 {
+        let mut i = s.len()-1;
+        while i < s.len() { 
+            let ch = s.chars().nth(i).unwrap();
+            if ch=='+'{
+                s.remove(i);
+                if s.len()==0{
+                    break;
+                }
+                if i < s.len() {
+                    s.remove(i);
+                }
             }
-            s.remove(i);
+            if i == 0 {
+                break;
+            }
+            i-=1;
         }
-        i-=1;
-    }  
+    }
 }
 
 fn calcul(s :String,opr :char)->String{

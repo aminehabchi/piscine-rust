@@ -1,7 +1,7 @@
 use borrow_me_the_reference::*;
 
 fn main() {
-    let mut a = "+".to_owned();
+    let mut a = "a-+b".to_owned();
     let mut b = [
         "2+2".to_owned(),
         "3+2".to_owned(),
