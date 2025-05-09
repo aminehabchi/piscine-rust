@@ -1,7 +1,8 @@
 // "bpp--o+er+++sskroi-++lcw"
 pub fn delete_and_backspace(s: &mut String) {
     let mut i = 0;
-    while i < s.len() {
+    let mut l=s.len();
+    while i < l {
         let ch = s.chars().nth(i).unwrap();
         if ch=='-'{
             s.remove(i);
@@ -12,6 +13,7 @@ pub fn delete_and_backspace(s: &mut String) {
         }else{
             i+=1;
         }
+        l=s.len();
     }  
     i=s.len()-1;
     while i > 0 {
