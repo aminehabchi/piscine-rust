@@ -7,24 +7,19 @@ pub fn is_ascii(v: &str) -> bool {
 }
 
 pub fn contains(v: &str, pat: &str) -> bool {
-    let l1=v.len();
-    let l2=pat.len();
-    let mut chars1=v.chars();
-    let mut chars2=pat.chars();
-    for i in 0..l1-l2+1{
-        let mut bl=true;
-        for j in 0..l2{
-            if chars1.nth(i+j)!=chars2.nth(j){
-                bl=false;
-                break;
-            }
-        }
-
-        if bl{
+    let l1 = v.len();
+    let l2 = pat.len();
+    if is_empty(pat) {
+        return true;
+    }
+    if l1 < l2 {
+        return false;
+    }
+    for i in 0..=l1 - l2 {
+        if &v[i..i + l2] == pat {
             return true;
         }
     }
-
     false
 }
 
