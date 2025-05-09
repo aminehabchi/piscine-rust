@@ -18,18 +18,18 @@ pub fn delete_and_backspace(s: &mut String) {
     }  
     if s.len() > 0 {
         let mut i = s.len()-1;
-        while i < s.len() { 
+        loop { 
             let ch = s.chars().nth(i).unwrap();
             if ch=='+'{
                 s.remove(i);
                 if s.len()==0{
                     break;
                 }
-                if i < s.len() {
+                if i < s.len() && i>=0 {
                     s.remove(i);
                 }
             }
-            if i == 0 {
+            if i == 0 || i>=s.len() {
                 break;
             }
             i-=1;
