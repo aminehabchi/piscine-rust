@@ -6,13 +6,15 @@ pub fn delete_and_backspace(s: &mut String) {
         if ch=='-'{
             s.remove(i);
             s.remove(i-1);
-            i-=1;
+            if i>0{
+                i-=1;
+            }
         }else{
             i+=1;
         }
     }  
     i=s.len()-1;
-    while i >0 {
+    while i > 0 {
         let ch = s.chars().nth(i).unwrap();
         if ch=='+'{
             s.remove(i);
