@@ -1,10 +1,13 @@
 use arrays::*;
 
 fn main() {
-    // let a = (1..=10)._;
-    let b = [5; 10];
-
-    // println!("The sum of the elements in {:?} is {}", a, sum(&a));
+    // vec
+    let mut binding = (1..=10).collect::<Vec<_>>();
+    
+    let a = &binding;
+    let b =thirtytwo_tens();
+    println!("{:?}",binding);
+    println!("The sum of the elements in {:?} is {}", a, sum(&a));
     println!("The sum of the elements in {:?} is {}", b, sum(&b));
     println!(
         "Array of {} elements filled with 10 = {:?}",
