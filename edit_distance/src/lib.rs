@@ -1,24 +1,21 @@
-use std::collections::HashMap;
 pub fn edit_distance(source: &str, target: &str) -> usize {
-    let mut x :usize=0;
-    let mut source_map: HashMap<char,usize> = HashMap::new();
-    let mut target_map: HashMap<char,usize> = HashMap::new();
-    for ch in source.chars(){
-        let val = source_map.entry(ch).or_insert(0);
-        *val+=1;
+    backtrack(source.as_bytes(), target.as_bytes(), 0, 0)
+}
+
+fn backtrack(source: &[u8], target: &[u8], i: usize, j: usize) -> usize {
+    if i == source.len() {
+        return target.len() - j;
+    }
+    if j == target.len() {
+        return source.len() - i; 
     }
 
-    for ch in target.chars(){
-        let val = target_map.entry(ch).or_insert(0);
-        *val+=1;
+    if source[i] == target[j] {
+        backtrack(source, target, i + 1, j + 1) 
+    } else {
+        let insert = backtrack(source, target, i, j + 1); 
+        let delete = backtrack(source, target, i + 1, j);    
+        let replace = backtrack(source, target, i + 1, j + 1); 
+        1 + insert.min(delete).min(replace)
     }
-
-    for (ch, val1) in &target_map {
-        let val2=source_map.entry(*ch).or_insert(0);
-        if *val1 != *val2{
-            x+=((*val1 as i32 -*val2 as i32).abs()) as usize;
-        }
-    }  
-    
-    x
 }
