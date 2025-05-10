@@ -22,7 +22,7 @@ pub fn title_case(input: &str) -> String {
 
     for i in 1..bytes.len(){
         if i>0{
-            if bytes[i-1]==32{
+            if bytes[i-1]<=32{
                 if bytes[i]>=97 && bytes[i]<=122{
                     bytes[i]-=32;
                 }
