@@ -3,10 +3,10 @@ use rand::Rng;
 // Suit (Heart, Diamond, Spade or Club).
 #[derive(Debug,PartialEq)]
 pub enum Suit {
-    Hearts,
-    Diamonds,
-    Clubs,
-    Spades,
+    Heart,
+    Diamond,
+    Club,
+    Spade,
 }
 
 // Rank Ace, King, Queen or Jack.
@@ -31,21 +31,21 @@ impl Suit {
         let mut rng = rand::thread_rng();
         let x: i32 = rng.gen_range(0..4);
         match x{
-            0=> return Suit::Hearts,
-            1=> return Suit::Diamonds,
-            2=> return Suit::Clubs,
-            3=> return Suit::Spades,
-            _ => Suit::Spades,
+            0=> return Suit::Heart,
+            1=> return Suit::Diamond,
+            2=> return Suit::Club,
+            3=> return Suit::Spade,
+            _ => Suit::Spade,
         }
     }
 
     pub fn translate(value: u8) -> Suit {
         match value{
-            0=> return Suit::Hearts,
-            1=> return Suit::Diamonds,
-            2=> return Suit::Clubs,
-            3=> return Suit::Spades,
-            _ => Suit::Spades,
+            0=> return Suit::Heart,
+            1=> return Suit::Diamond,
+            2=> return Suit::Club,
+            3=> return Suit::Spade,
+            _ => Suit::Spade,
         }
     }
 }
@@ -101,7 +101,7 @@ pub struct Card {
 
 pub fn winner_card(card: &Card) -> bool {
     let winner_card=Card{
-        suit: Suit::Spades,
+        suit: Suit::Spade,
         rank: Rank::Ace,
     };
     *card==winner_card
