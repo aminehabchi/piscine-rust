@@ -26,6 +26,10 @@ pub fn title_case(input: &str) -> String {
                 if bytes[i]>=97 && bytes[i]<=122{
                     bytes[i]-=32;
                 }
+            }else{
+                if bytes[i]>=65 && bytes[i]<=90{
+                    bytes[i]+=32;
+                }
             }
         }
 
