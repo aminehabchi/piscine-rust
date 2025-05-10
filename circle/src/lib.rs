@@ -20,7 +20,7 @@ impl Circle {
         PI*self.radius*self.radius
     }
 
-    pub fn intersect(&self, other: &Circle) -> bool {
+    pub fn intersect(&self, other: Circle) -> bool {
         let d: f64 = self.center.distance(other.center);
         
         // Check if |r1 - r2| < d < r1 + r2
