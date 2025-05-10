@@ -26,6 +26,7 @@ pub enum Rank {
     King,
     Ace,
 }
+
 impl Suit {
     pub fn random() -> Suit {
         let mut rng = rand::thread_rng();
