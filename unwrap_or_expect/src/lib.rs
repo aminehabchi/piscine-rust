@@ -11,7 +11,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
     match security_level{
         Security::Unknown       => match server{
                                         Ok(m) => return m.to_string(),
-                                        Err(_e)=> panic!(""),
+                                        Err(_e)=> panic!("{}",e.to_string()),
                                     },
         Security::Message       => match server{
                                         Ok(m) => return m.to_string(),
