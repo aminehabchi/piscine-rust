@@ -8,10 +8,11 @@ pub enum Security {
 
 
 pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> String {
+
     match security_level{
         Security::Unknown       => match server{
                                         Ok(m) => return m.to_string(),
-                                        Err(e)=> panic!(),
+                                        Err(e)=> panic!("{}", e),
                                     },
         Security::Message       => match server{
                                         Ok(m) => return m.to_string(),
@@ -26,7 +27,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
                                         Err(e)=> return format!("Not found: {}", e),
                                     },
         Security::UnexpectedUrl => match server{
-                                        Ok(url) => return url.to_string(),
+                                        Ok(url) => panic!("{}", url),
                                         Err(e) => panic!("{}", e),
                                     },
     }
