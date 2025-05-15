@@ -18,11 +18,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
             Err(_) => panic!("ERROR: program stops"),
         },
 
-        Security::Warning => match server {
-            Ok(url) => url.to_string(),
-            Err(_) => "WARNING: check the server".to_string(),
-        },
-
+        Security::Warning => return server.unwrap_or("WARNING: check the server".to_string());
         Security::NotFound => match server {
             Ok(url) => url.to_string(),
             Err(err) => "Not found: ".to_string()+ err,
