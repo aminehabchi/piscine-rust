@@ -6,12 +6,12 @@ fn main() {
     println!("{}", fetch_data(Err("server2.com"), Security::NotFound));
 
     // Panics with no custom message
-    //println!("{}",  fetch_data(Err("ERROR CRITICAL"), Security::Unknown));
+    println!("{}",  fetch_data(Err("ERROR CRITICAL"), Security::Unknown));
 
     // Panics with the message "ERROR: program stops"   
    // println!("{}",  fetch_data(Err("server.com"), Security::Message));
 
     // Panics with the message "malicious_server.com"
-    println!("{}", fetch_data(Ok("malicious_server.com"), Security::UnexpectedUrl));
+    //println!("{}", fetch_data(Ok("malicious_server.com"), Security::UnexpectedUrl));
 
 }

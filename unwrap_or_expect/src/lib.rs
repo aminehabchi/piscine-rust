@@ -25,13 +25,12 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
 
         Security::NotFound => match server {
             Ok(url) => url.to_string(),
-            Err(err) => format!("Not found: {}", err),
+            Err(err) => "Not found: ".to_string()+ err,
         },
 
         Security::UnexpectedUrl => match server {
-            Ok(url) => url.to_string(),
+            Ok(url) =>  panic!("{}", url),
             Err(err) => panic!("{}", err),
         },
     }
-    panic!();
 }
