@@ -23,7 +23,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
         },
 
         Security::UnexpectedUrl => match server {
-            Ok(val) => val.to_string(),
+            Ok(val) => panic!("{}", val),
             Err(err) => panic!("{}", err),
         },
     }
