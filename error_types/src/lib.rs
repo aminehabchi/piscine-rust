@@ -1,9 +1,5 @@
 use chrono::prelude::*;
 
-fn now_timestamp() -> String {
-    let now = Utc::now();
-    now.format("%Y-%m-%d %H:%M:%S").to_string()
-}
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct FormError<'a> {
@@ -17,7 +13,7 @@ impl<'a> FormError<'a> {
         FormError {
             err,
             form_values: (field_name, field_value),
-            date: now_timestamp(),
+            date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
         }
     }
 }
