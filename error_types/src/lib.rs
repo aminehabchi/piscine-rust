@@ -28,7 +28,7 @@ impl Form {
     pub fn validate<'a>(&'a self) -> Result<(), FormError<'a>> {
         if self.name.is_empty() {
             return Err(FormError::new(
-                "first_name",
+                "name",
                 self.name.clone(),
                 "Username is empty",
             ));
