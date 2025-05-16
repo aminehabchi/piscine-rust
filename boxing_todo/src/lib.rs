@@ -1,14 +1,32 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use std::fs;
+use std::io;
+use std::error::Error;
+
+#[derive(Debug, Eq, PartialEq)]
+pub struct Task {
+    pub id: u32,
+    pub description: String,
+    pub level: u32,
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+#[derive(Debug, Eq, PartialEq)]
+pub struct TodoList {
+    pub title: String,
+    pub tasks: Vec<Task>,
+}
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+impl TodoList {
+    pub fn get_todo(path: &str) -> Result<TodoList, Box<dyn Error>> {
+        let content = fs::read_to_string(path)?;
+        if content==""{
+            let arr:Vec<Task>=Vec::new();
+            return Ok(TodoList { title:"".to_string() ,tasks: arr })
+        }
+         let parsed = json::parse(&content).unwrap_or("".into());
+        println!("parsed {:?}", parsed);
+        println!("-------------");
+
+        let arr:Vec<Task>=Vec::new();
+        Ok(TodoList { title:"".to_string() ,tasks: arr })
     }
 }
