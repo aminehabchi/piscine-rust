@@ -13,7 +13,7 @@ pub struct FormError {
 }
 
 impl FormError {
-    pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
+    pub fn new(field_name: String, field_value: String, err: String) -> Self {
         FormError {
             err: err.to_string(),
             form_values: (field_name.to_string(), field_value),
@@ -32,17 +32,17 @@ impl Form {
     pub fn validate(&self) -> Result<(), FormError> {
         if self.name.is_empty() {
             return Err(FormError::new(
-                "first_name",
+                "first_name".to_string(),
                 self.name.clone(),
-                "Username is empty",
+                "Username is empty".to_string(),
             ));
         }
 
         if self.password.len() < 8 {
             return Err(FormError::new(
-                "password",
+                "password".to_string(),
                 self.password.clone(),
-                "Password should be at least 8 characters long",
+                "Password should be at least 8 characters long".to_string(),
             ));
         }
 
@@ -64,9 +64,9 @@ impl Form {
 
         if !letter || !number || !symbol {
             return Err(FormError::new(
-                "password",
+                "password".to_string(),
                 self.password.clone(),
-                "Password should be a combination of ASCII numbers, letters and symbols",
+                "Password should be a combination of ASCII numbers, letters and symbols".to_string(),
             ));
         }
 
