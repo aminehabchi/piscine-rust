@@ -13,10 +13,10 @@ pub struct FormError {
 }
 
 impl FormError {
-    pub fn new(field_name: &str, field_value: String, err: &str) -> Self {
+    pub fn new(field_name: &'static str, field_value: String, err: &'static str) -> Self {
         FormError {
             err: err.to_string(),
-            form_values: (field_name.to_owned(), field_value),
+            form_values: (field_name.to_string(), field_value),
             date: now_timestamp(),
         }
     }
@@ -31,7 +31,11 @@ pub struct Form {
 impl Form {
     pub fn validate(&self) -> Result<(), FormError> {
         if self.name.is_empty() {
-            return Err(FormError::new("name", self.name.clone(), "Username is empty"));
+            return Err(FormError::new(
+                "first_name",
+                self.name.clone(),
+                "Username is empty",
+            ));
         }
 
         if self.password.len() < 8 {
