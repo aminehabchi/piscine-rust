@@ -1,9 +1,12 @@
 
 
 pub fn check_ms(message: &str) -> Result<&str, &str> {
-   let lower=message.to_lowercase();
+  if message==""{
+    return Err("ERROR: illegal");
+  }
+   let lower=message.to_string().to_lowercase();
   match lower.find("stupid"){
-    Some(_)=> Ok(message),
-    None=> Err("ERROR: illegal"),
+    Some(_)=> Err("ERROR: illegal"),
+    None=> Ok(message),
   }
 }
