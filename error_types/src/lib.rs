@@ -1,4 +1,4 @@
-use chrono::prelude::*;
+use chrono::Utc;
 
 
 #[derive(Debug, Eq, PartialEq)]
