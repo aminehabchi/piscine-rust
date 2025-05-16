@@ -1,4 +1,4 @@
-use chrono::Utc;
+use chrono::Local;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct FormError<'a> {
@@ -12,7 +12,7 @@ impl<'a> FormError<'a> {
         FormError {
             err,
             form_values: (field_name, field_value),
-            date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+            date: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
         }
     }
 }
