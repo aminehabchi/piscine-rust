@@ -150,28 +150,24 @@ pub fn biggest_store(mall: &Mall) -> (String, Store) {
     result
 }
 
-pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
-    let mut max_salary = 0.0;
-    let mut name: String = "".to_owned();
-    let mut employee: Employee = Employee {
-        age: 0,
-        working_hours: (0, 0),
-        salary: 0.0,
-    };
-
-    for (_floor_name, floor) in &mall.floors {
-        for (_store_name, store) in &floor.stores {
-            for (employee_name, empl) in &store.employees {
-                if empl.salary > max_salary {
-                    max_salary = empl.salary;
-                    employee = empl.clone();
-                    name = employee_name.clone();
+pub fn highest_paid_employee(mall: &Mall) -> Vec<(&str, Employee)>{
+    let mut hp :Vec<(&str, Employee)>= vec![];
+    let mut b: f64 = 0.0;
+    for (_,f) in &mall.floors{
+        for (_,s) in &f.stores{
+            for (n, e) in &s.employees{
+                if e.salary > b{
+                    hp =  vec![];
+                    hp.push((&n,*e));
+                    b = e.salary;
+                }else if e.salary == b{
+                    hp.push((&n, *e));
+                    b = e.salary;
                 }
             }
         }
     }
-
-    vec![(name, employee)]
+    hp
 }
 
 pub fn nbr_of_employees(mall: &Mall) -> usize {
