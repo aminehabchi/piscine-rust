@@ -4,7 +4,7 @@ fn is_cap(t :&str)->bool{
 }
 
 pub fn talking(text: &str) -> &str {
-    if text.len()==0{
+    if text.trim().is_empty(){
      return "Just say something!";
     }
 
@@ -12,7 +12,7 @@ pub fn talking(text: &str) -> &str {
         return "Quiet, I am thinking!";
     }
 
-    if !is_cap(text) &&  text.ends_with('?'.to_string().as_str()) {
+    if  text.ends_with('?'.to_string().as_str()) {
         return "Sure.";
     }
 
