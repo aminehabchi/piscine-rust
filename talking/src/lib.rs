@@ -1,6 +1,6 @@
-fn is_cap(t :&str)->bool{
-    let s=t.to_uppercase();
-    return t==s;
+fn is_cap(t: &str) -> bool {
+    let has_letters = t.chars().any(|c| c.is_alphabetic());
+    has_letters && t.chars().all(|c| !c.is_alphabetic() || c.is_uppercase())
 }
 
 pub fn talking(text: &str) -> &str {
