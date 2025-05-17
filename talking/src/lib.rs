@@ -8,11 +8,11 @@ pub fn talking(text: &str) -> &str {
      return "Just say something!";
     }
 
-    if is_cap(text) && text.ends_with('?'.to_string().as_str()){
+    if is_cap(text) && text.contains('?'){
         return "Quiet, I am thinking!";
     }
 
-    if  text.ends_with('?'.to_string().as_str()) {
+    if text.contains('?'){
         return "Sure.";
     }
 
