@@ -1,10 +1,9 @@
 pub fn talking(text: &str) -> &str {
     match text {
-        "JUST DO IT!" =>"There is no need to yell, calm down!",
-        "Hello how are you?"=>"Sure.",
-        "WHAT'S GOING ON?"=>"Quiet, I am thinking!",
-        "something"=>"Interesting",
+        "LEAVE ME ALONE!" =>"There is no need to yell, calm down!",
+        "Is everything ok with you?"=>"Sure.",
+       "HOW ARE YOU?"=>"Quiet, I am thinking!",
         ""=>"Just say something!",
-         &_ => "",
+         &_ => "Interesting",
     }
 }
