@@ -1,10 +1,5 @@
 use does_it_fit::*;
-
-mod areas_volumes;
-
 pub use areas_volumes::*;
-
-
 fn main() {
     println!(
         "Do 100 rectangles (2x1) fit in a 2 by 4 square? {}",
