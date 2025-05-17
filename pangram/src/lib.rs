@@ -1,14 +1,12 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+pub fn is_pangram(s: &str) -> bool {
+    s.to_lowercase();
+    
+    for i in 0..26{
+        let letter:char=(i+97) as u8 as char;
+        if !s.contains(letter){
+            return false;
+        }
     }
+
+    true
 }
