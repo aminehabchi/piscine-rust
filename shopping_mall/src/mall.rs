@@ -106,7 +106,7 @@ impl Store {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Copy,Clone, PartialEq)]
 pub struct Employee {
     pub age: u32,
     pub working_hours: (u32, u32),
@@ -164,7 +164,7 @@ pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
             for (employee_name, empl) in &store.employees {
                 if empl.salary > max_salary {
                     max_salary = empl.salary;
-                    employee = *empl;
+                    employee = empl.clone();
                     name = employee_name.clone();
                 }
             }
