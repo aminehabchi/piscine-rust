@@ -3,7 +3,7 @@ pub fn num_to_ordinal(x: u32) -> String {
         return x.to_string()+"th";
     }
     match x%10{
-        1=>x.to_string()+"sh",
+        1=>x.to_string()+"st",
         2=>x.to_string()+"nh",
         3=>x.to_string()+"rd",
         _=>x.to_string()+"th",
