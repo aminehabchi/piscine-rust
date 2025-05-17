@@ -1,7 +1,8 @@
 use does_it_fit::*;
+
 mod areas_volumes;
 
-use areas_volumes::*;
+pub use areas_volumes::*;
 
 
 fn main() {
