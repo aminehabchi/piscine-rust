@@ -109,7 +109,6 @@ impl Store {
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub struct Employee {
     pub age: u32,
-    // The employee works from `working_hours.0` to `working_hours.1`
     pub working_hours: (u32, u32),
     pub salary: f64,
 }
@@ -132,51 +131,95 @@ impl Employee {
     }
 }
 
-pub fn biggest_store(mall:&Mall)->Store{
-
-    let mut max:u64=0;
-    let mut store:Store=Store{
+pub fn biggest_store(mall: &Mall) -> (String, Store) {
+    let mut max: u64 = 0;
+    let mut result: (String, Store) = ("".to_string(), Store {
         employees: HashMap::new(),
         square_meters: 0,
-    };
-    for (_kk,vv) in &mall.floors.clone(){
-        
-        for (_k,v) in &vv.stores{
-            if v.square_meters>=max{
-                max=v.square_meters;
-                store=v.clone();
+    });
+
+    for (_floor_name, floor) in &mall.floors {
+        for (store_name, store) in &floor.stores {
+            if store.square_meters > max {
+                max = store.square_meters;
+                result = (store_name.clone(), store.clone());
             }
         }
     }
-    store
+
+    result
 }
 
-pub fn highest_paid_employee(mall:&Mall)->Vec<(String,Employee)>{
-    let mut empls:Vec<(String,Employee)>=Vec::new();
+pub fn highest_paid_employee(mall: &Mall) -> Vec<(String, Employee)> {
+    let mut max_salary = 0.0;
+    let mut name: String = "".to_owned();
+    let mut employee: Employee = Employee {
+        age: 0,
+        working_hours: (0, 0),
+        salary: 0.0,
+    };
 
-      for (_kk,vv) in &mall.floors.clone(){
-        
-        for (_k,v) in &vv.stores{
-            let mut max=0.0;
-            let mut name:String="".to_owned();
-            let mut employee:Employee=Employee{
-                age: 0,
-                working_hours: (0, 0),
-                salary: 0.0,
-            };
-            for (e,empl) in &v.employees{
-                if empl.salary>max{
-                    employee=*empl;
-                    max=empl.salary;
-                    name=e.to_owned();
+    for (_floor_name, floor) in &mall.floors {
+        for (_store_name, store) in &floor.stores {
+            for (employee_name, empl) in &store.employees {
+                if empl.salary > max_salary {
+                    max_salary = empl.salary;
+                    employee = *empl;
+                    name = employee_name.clone();
                 }
-           }
-           empls.push((name,employee))
+            }
         }
-
     }
 
-    
+    vec![(name, employee)]
+}
 
-    empls
+pub fn nbr_of_employees(mall: &Mall) -> usize {
+    let mut total = mall.guards.len();
+
+    for (_floor_name, floor) in &mall.floors {
+        for (_store_name, store) in &floor.stores {
+            total += store.employees.len();
+        }
+    }
+
+    total
+}
+
+pub fn check_for_securities(mall: &mut Mall, mut guards: HashMap<String, Guard>) {
+    let mut total_area: usize = 0;
+
+    for (_floor_name, floor) in &mall.floors {
+        for (_store_name, store) in &floor.stores {
+            total_area += store.square_meters as usize;
+        }
+    }
+
+    let required_guards = (total_area + 199) / 200;
+    let current_guards = mall.guards.len();
+
+    if current_guards < required_guards {
+        let needed = required_guards - current_guards;
+        for (k, v) in guards.drain() {
+            mall.guards.insert(k, v);
+            if mall.guards.len() >= required_guards {
+                break;
+            }
+        }
+    }
+}
+
+pub fn cut_or_raise(mall: &mut Mall) {
+    for (_floor_name, floor) in &mut mall.floors {
+        for (_store_name, store) in &mut floor.stores {
+            for (_employee_name, empl) in &mut store.employees {
+                let work_hours = empl.working_hours.1 as i32 - empl.working_hours.0 as i32;
+                if work_hours > 10 {
+                    empl.raise(empl.salary * 0.1);
+                } else {
+                    empl.cut(empl.salary * 0.1);
+                }
+            }
+        }
+    }
 }
