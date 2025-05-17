@@ -1,4 +1,4 @@
-use case::CaseExt;
+
 
 pub fn edit_distance(source: &str, target: &str) -> usize {
     let m = source.len();
@@ -29,9 +29,7 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
 }
 
 pub fn expected_variable(a: &str, b: &str) -> Option<String> {
-    if a!=a.to_camel() && b!=b.to_snake() {
-        return None;
-    }
+
 
     let a1: String = a.to_string().to_lowercase();
     let b1: String = b.to_string().to_lowercase();
