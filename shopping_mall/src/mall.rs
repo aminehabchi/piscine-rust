@@ -182,25 +182,30 @@ pub fn nbr_of_employees(mall: &Mall) -> usize {
     total
 }
 
-pub fn check_for_securities(mall: &mut Mall, mut guards: HashMap<String, Guard>) {
-    let mut total_area: usize = 0;
-
-    for (_floor_name, floor) in &mall.floors {
-        for (_store_name, store) in &floor.stores {
-            total_area += store.square_meters as usize;
+pub fn check_for_securities(mall: &mut Mall, guards: Vec<(String, Guard)>) {
+    let tot_guards = mall.guards.len() as u64;
+    let mut tot_squares = 0;
+    for (_, f) in &mall.floors {
+        for (_, s) in &f.stores {
+            tot_squares += s.square_meters
         }
     }
-
-    let required_guards = (total_area + 199) / 200;
-    let current_guards = mall.guards.len();
-
-    if current_guards < required_guards {
-        let needed = required_guards - current_guards;
-        for (k, v) in guards.drain() {
-            mall.guards.insert(k, v);
-            if mall.guards.len() >= required_guards {
-                break;
+    if tot_squares <= tot_guards {
+        return;
+    }
+    let mut need: u64 = mall.guards.len() as u64 + (tot_squares + 199) / 200 - tot_guards;
+    for (n, g) in guards {
+        match mall.guards.get(&n) {
+            None => {
+                mall.hire_guard(n, g);
+                if need != 0 {
+                    need -= 1;
+                }
+                if need == 0 {
+                    break;
+                }
             }
+            _ => continue,
         }
     }
 }
