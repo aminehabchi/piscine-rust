@@ -1,20 +1,17 @@
 use expected_variable::*;
 
 fn main() {
-    println!(
-        "{} close to it",
-        expected_variable("On_Point", "on_point").unwrap()
-    );
-    println!(
-        "{} close to it",
-        expected_variable("soClose", "so_close").unwrap()
-    );
-    println!(
-        "{:?}",
-        expected_variable("something", "something_completely_different")
-    );
-    println!(
-        "{} close to it",
-        expected_variable("BenedictCumberbatch", "BeneficialCucumbersnatch").unwrap()
-    );
+    let cases = vec![
+        ("On_Point", "on_point"),
+        ("aaa", "bbb"),
+        ("something", "something_completely_different"),
+        ("BenedictCumberbatch", "BeneficialCucumbersnatch"),
+    ];
+
+    for (a, b) in cases {
+        match expected_variable(a, b) {
+            Some(score) => println!("{score} close to it"),
+            None => println!("Not similar enough"),
+        }
+    }
 }
