@@ -34,7 +34,7 @@ pub fn expected_variable(a:&str,b:&str)->Option<String>{
 
     let s:f64=n as f64 * 100.0/b.len() as f64;
     let x:i32=(s.round() as i64).try_into().unwrap();
-    if x<50{
+    if x<=50{
         return None;
     }
 
