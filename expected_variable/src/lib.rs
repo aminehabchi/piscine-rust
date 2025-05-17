@@ -1,3 +1,5 @@
+use case::CaseExt;
+
 pub fn edit_distance(source: &str, target: &str) -> usize {
     let m = source.len();
     let n = target.len();
@@ -26,18 +28,20 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
     dp[m][n]
 }
 
-
-pub fn expected_variable(a:&str,b:&str)->Option<String>{
-    let a1:String=a.to_string().to_lowercase();
-    let b1:String=b.to_string().to_lowercase();
-    let n:i32=b.len() as i32- edit_distance(&a1,&b1) as i32 ;
-    let s:f64=n as f64 * 100.0/b.len() as f64;
-
-    let x:i32=s.round() as i32;
-
-    if x<50{
+pub fn expected_variable(a: &str, b: &str) -> Option<String> {
+    if a!=a.to_camel() && b!=b.to_snake() {
         return None;
     }
-    Some(x.to_string()+"%")
 
+    let a1: String = a.to_string().to_lowercase();
+    let b1: String = b.to_string().to_lowercase();
+    let n: i32 = b.len() as i32 - edit_distance(&a1, &b1) as i32;
+    let s: f64 = n as f64 * 100.0 / b.len() as f64;
+
+    let x: i32 = s.round() as i32;
+
+    if x < 50 {
+        return None;
+    }
+    Some(x.to_string() + "%")
 }
