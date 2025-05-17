@@ -27,7 +27,7 @@ pub fn calculate_macros(foods: &[Food]) -> json::JsonValue {
     carbs=carbs+food.carbs*food.nbr_of_portions;
     proteins=proteins+food.proteins*food.nbr_of_portions;
    }
-
+sqlite3
 
    object! {
             cals:round_two_decimals(cals),
