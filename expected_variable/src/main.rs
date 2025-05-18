@@ -3,7 +3,7 @@ use expected_variable::*;
 fn main() {
     let cases = vec![
         ("On_Point", "on_point"),
-        ("aaa", "bbb"),
+        ("aaa", "aaa"),
         ("something", "something_completely_different"),
         ("BenedictCumberbatch", "BeneficialCucumbersnatch"),
     ];
