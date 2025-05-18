@@ -1,45 +1,46 @@
+use std::borrow::Cow;
 
-
-pub fn edit_distance(source: &str, target: &str) -> usize {
-    let m = source.len();
-    let n = target.len();
-    let source = source.as_bytes();
-    let target = target.as_bytes();
-
-    let mut dp = vec![vec![0; n + 1]; m + 1];
-
-    for i in 0..=m {
-        dp[i][0] = i;
-    }
-    for j in 0..=n {
-        dp[0][j] = j;
-    }
-
-    for i in 1..=m {
-        for j in 1..=n {
-            if source[i - 1] == target[j - 1] {
-                dp[i][j] = dp[i - 1][j - 1];
+/// Your edit_distance function must be implemented already.
+/// Here's a simple version if you don't have it:
+fn edit_distance(a: &str, b: &str) -> usize {
+    let mut dp = vec![vec![0; b.len() + 1]; a.len() + 1];
+    for i in 0..=a.len() {
+        for j in 0..=b.len() {
+            dp[i][j] = if i == 0 {
+                j
+            } else if j == 0 {
+                i
+            } else if a.chars().nth(i - 1) == b.chars().nth(j - 1) {
+                dp[i - 1][j - 1]
             } else {
-                dp[i][j] = 1 + dp[i - 1][j - 1].min(dp[i][j - 1]).min(dp[i - 1][j]);
-            }
+                1 + std::cmp::min(dp[i - 1][j - 1], std::cmp::min(dp[i][j - 1], dp[i - 1][j]))
+            };
         }
     }
+    dp[a.len()][b.len()]
+}
 
-    dp[m][n]
+fn is_snake_case(s: &str) -> bool {
+    s.chars().all(|c| c.is_lowercase() || c == '_')
 }
 
 pub fn expected_variable(a: &str, b: &str) -> Option<String> {
-
-
-    let a1: String = a.to_string().to_lowercase();
-    let b1: String = b.to_string().to_lowercase();
-    let n: i32 = b.len() as i32 - edit_distance(&a1, &b1) as i32;
-    let s: f64 = n as f64 * 100.0 / b.len() as f64;
-
-    let x: i32 = s.round() as i32;
-
-    if x < 50 {
+    if a.contains(' ') || b.contains(' ') {
         return None;
     }
-    Some(x.to_string() + "%")
+    let aa = a.to_lowercase();
+    let bb = b.to_lowercase();
+    if is_snake_case(&aa) && is_snake_case(&bb) {
+        return None;
+    }
+
+    let distance = edit_distance(&aa, &bb);
+    let similarity = 1.0 - (distance as f64 / b.len() as f64);
+    let res = (similarity * 100.0).round();
+    
+    if res > 50.0 {
+        return Some(format!("{}%", res));
+    }
+
+    None
 }
