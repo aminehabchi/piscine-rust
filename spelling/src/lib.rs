@@ -40,41 +40,46 @@ fn less_then_100(a:u64,b:u64)->String{
 }
 
 pub fn spell(m: u64) -> String {
-    if m==0{
+    if m == 0 {
         return "zero".to_string();
     }
-    let scales = vec![
-        "", "thousand", "million", "billion"
-    ];
 
-    let mut arr:Vec<String>=Vec::new();
-    let mut n:u64=m;
-    let mut counter:usize=0;
-    while n>0{
-        let a=n%10;
-        n/=10;
-        let b=n%10;
-        n/=10;
-        let c=n%10;
-        n/=10;
-        
-        if a!=0 || b!=0 || c!=0{
-            arr.push(scales[counter].to_string());
+    let scales = vec!["", "thousand", "million", "billion"];
+    let mut arr: Vec<String> = Vec::new();
+    let mut n: u64 = m;
+    let mut counter: usize = 0;
+
+    while n > 0 {
+        let a = n % 10;
+        n /= 10;
+        let b = n % 10;
+        n /= 10;
+        let c = n % 10;
+        n /= 10;
+
+        if a != 0 || b != 0 || c != 0 {
+            if !scales[counter].is_empty() {
+                arr.push(scales[counter].to_string());
+            }
+
+            let two_digit = less_then_100(b, a);
+            if !two_digit.is_empty() {
+                arr.push(two_digit);
+            }
+
+            if c != 0 {
+                arr.push("hundred".to_string());
+                arr.push(less_then_100(0, c));
+            }
         }
 
-        arr.push(less_then_100(b,a).to_string());
-
-        if c!=0{
-            arr.push("hundred".to_string());
-            arr.push(less_then_100(0,c).to_string());
-        }
-
-
-        counter+=1;
+        counter += 1;
     }
-    
+
     arr.into_iter()
         .rev()
         .collect::<Vec<_>>()
         .join(" ")
+        .trim()
+        .to_string()
 }
