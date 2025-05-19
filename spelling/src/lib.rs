@@ -58,9 +58,9 @@ pub fn spell(m: u64) -> String {
         n /= 10;
 
         if a != 0 || b != 0 || c != 0 {
-            if !scales[counter].is_empty() {
-                arr.push(scales[counter].to_string());
-            }
+
+            arr.push(scales[counter].to_string());
+            
 
             let two_digit = less_then_100(b, a);
             if !two_digit.is_empty() {
