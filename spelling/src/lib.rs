@@ -1,6 +1,5 @@
-
-fn less_then_100(a:u64,b:u64)->String{
-     let numbers: Vec<String> = vec![
+fn less_then_100(a: u64, b: u64) -> String {
+    let numbers: Vec<String> = vec![
         "".to_string(),
         "one".to_string(),
         "two".to_string(),
@@ -25,24 +24,29 @@ fn less_then_100(a:u64,b:u64)->String{
     ];
 
     let tens = vec![
-    "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
+        "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety",
     ];
 
-    if b==0{
+    if b == 0 {
         return tens[a as usize].to_string();
     }
 
-    if a<=2{
-        return numbers[(a*10) as usize + b as usize].to_string();
+    if a == 0 {
+        return numbers[b as usize].to_string();
     }
-    
 
-    let mut result:String=tens[a as usize].to_string();
+    if a == 1 || (a == 2 && b == 0) {
+        // Handles 10 to 20 safely
+        return numbers[(a * 10 + b) as usize].to_string();
+    }
+
+    let mut result = tens[a as usize].to_string();
     result.push('-');
-    result.push_str(&numbers[b as usize].to_string());
+    result.push_str(&numbers[b as usize]);
 
     result
 }
+
 
 pub fn spell(m: u64) -> String {
     if m == 0 {
