@@ -28,9 +28,14 @@ fn less_then_100(a:u64,b:u64)->String{
     "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
     ];
 
+    if b==0{
+        return tens[a as usize].to_string();
+    }
+
     if a<=2{
         return numbers[(a*10) as usize + b as usize].to_string();
     }
+    
 
     let mut result:String=tens[a as usize].to_string();
     result.push('-');
@@ -45,7 +50,9 @@ pub fn spell(m: u64) -> String {
     }
 
     let scales = vec!["", "thousand", "million", "billion"];
+
     let mut arr: Vec<String> = Vec::new();
+
     let mut n: u64 = m;
     let mut counter: usize = 0;
 
