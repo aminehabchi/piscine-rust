@@ -25,7 +25,7 @@ fn less_then_100(a:u64,b:u64)->String{
     ];
 
     let tens = vec![
-    "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
+    "", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"
     ];
 
     if b==0{

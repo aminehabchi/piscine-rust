@@ -9,5 +9,5 @@ fn main() {
      println!("{}", spell(101));
     println!("{}", spell(348));
      println!("{}", spell(1002));
-    println!("{}", spell(9996));
+    println!("{}", spell(10));
 }
