@@ -40,6 +40,9 @@ fn less_then_100(a:u64,b:u64)->String{
 }
 
 pub fn spell(m: u64) -> String {
+    if m==0{
+        return "zero".to_string();
+    }
     let scales = vec![
         "", "thousand", "million", "billion"
     ];
