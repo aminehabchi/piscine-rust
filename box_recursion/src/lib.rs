@@ -40,7 +40,7 @@ impl WorkEnvironment {
 
         while let Some(worker) = current {
             if worker.next.is_none() {
-                return Some((worker.role.clone(), worker.name.clone()));
+                return Some((worker.name.clone(),worker.role.clone()));
             }
             current = worker.next.as_ref();
         }
