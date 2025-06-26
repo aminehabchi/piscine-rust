@@ -36,13 +36,8 @@ impl WorkEnvironment {
     }
 
     pub fn last_worker(&self) -> Option<(String, String)> {
-        let mut current = self.grade.as_ref();
-
-        while let Some(worker) = current {
-            if worker.next.is_none() {
-                return Some((worker.name.clone(),worker.role.clone()));
-            }
-            current = worker.next.as_ref();
+        if let Some(worker)=self.grade.as_ref() {
+            return Some((worker.name.clone(), worker.role.clone()));
         }
 
         None
