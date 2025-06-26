@@ -15,7 +15,7 @@ impl Node {
         let mut i: usize = 0;
 
         while i < self.ref_list.len() {
-            if how_many_references(&self.ref_list[i]) > 2 && *self.ref_list[i] == *element {
+            if !Rc::ptr_eq(self.ref_list[i], element) {
                 self.ref_list.remove(i);
             } else {
                 i += 1;
