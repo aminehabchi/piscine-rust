@@ -5,7 +5,7 @@ pub struct WorkEnvironment {
 
 pub type Link = Box<Option<Worker>>;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Worker {
     pub role: String,
     pub name: String,
@@ -20,70 +20,44 @@ impl WorkEnvironment {
         }
     }
     pub fn add_worker(&mut self, role: String, name: String) {
-        let new_worker = Box::new(
-            Some(Worker {
-                role,
-                name,
-                next: Box::new(None),
-            })
-        );
+        let mut new_worker = Worker {
+            role,
+            name,
+            next: Box::new(None),
+        };
+
         if self.grade.as_ref().is_none() {
-            self.grade = new_worker;
+            self.grade = Box::new(Some(new_worker));
             return;
         }
-        let mut current = &mut self.grade;
-        while let Some(worker) = current.as_mut() {
-            if worker.next.as_ref().is_none() {
-                worker.next = new_worker;
-                return;
-            }
-            current = &mut worker.next;
-        }
+
+        new_worker.next = std::mem::replace(&mut self.grade, Box::new(None));
+        self.grade = Box::new(Some(new_worker));
     }
     pub fn remove_worker(&mut self) -> Option<String> {
         if self.grade.as_ref().is_none() {
             return None;
         }
-        if let Some(worker) = self.grade.as_mut() {
-            if worker.next.as_ref().is_none() {
-                let t = Some(worker.name.clone());
-                self.grade = Box::new(None);
-                return t;
+        if let Some(worker) = self.grade.as_ref() {
+            let name = worker.name.clone();
+            match worker.next.as_ref() {
+                Some(w) => {
+                    self.grade = Box::new(Some(w.clone()));
+                }
+                None => {
+                    self.grade = Box::new(None);
+                }
             }
+            return Some(name);
         }
-
-        let mut current = &mut self.grade;
-        let mut current1 = Box::new(None);
-        if let Some(worker) = current.as_mut() {
-            current1 = &mut worker.next;
-        }
-        while let Some(worker1) = current1.as_mut() {
-            if worker1.next.as_ref().is_none() {
-                // let t = Some(worker1.name.clone());
-                // if let Some(worker) = current.as_mut() {
-                //     worker.next = Box::new(None);
-                // }
-                return None;
-            }
-            current1 = &mut worker1.next;
-            if let Some(worker) = current.as_mut() {
-                current = &mut worker.next;
-            }
-        }
-
         None
     }
     pub fn last_worker(&self) -> Option<(String, String)> {
         if self.grade.as_ref().is_none() {
             return None;
         }
-
-        let mut current = &self.grade;
-        while let Some(worker) = current.as_ref() {
-            if worker.next.as_ref().is_none() {
-                return Some((worker.role.clone(), worker.name.clone()));
-            }
-            current = &worker.next;
+        if let Some(worker) = self.grade.as_ref() {
+            return Some((worker.name.clone(), worker.role.clone()));
         }
         None
     }
