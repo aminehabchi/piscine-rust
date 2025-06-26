@@ -3,7 +3,7 @@ pub struct WorkEnvironment {
     pub grade: Link,
 }
 
-pub type Link = Box<Option<Worker>>;
+pub type Link = Option<Box<Worker>>;
 
 #[derive(Debug)]
 pub struct Worker {
@@ -14,34 +14,37 @@ pub struct Worker {
 
 impl WorkEnvironment {
     pub fn new() -> WorkEnvironment {
-        let l: Link = Box::new(None);
-        WorkEnvironment {
-            grade: l,
-        }
+        WorkEnvironment { grade: None }
     }
+
     pub fn add_worker(&mut self, role: String, name: String) {
-        let mut new_worker = Worker {
+        let new_worker = Box::new(Worker {
             role,
             name,
-            next:Box::new(self.grade.take()),
-        };
+            next: self.grade.take(),
+        });
+        self.grade = Some(new_worker);
+    }
 
-        self.grade = Box::new(Some(new_worker));
-    }
     pub fn remove_worker(&mut self) -> Option<String> {
-        self.grade.take().map(|node| {
-            let name = node.name.clone();
-            self.grade = node.next;
-            name
-        })
+        if let Some(mut boxed) = self.grade.take() {
+            self.grade = boxed.next.take();
+            Some(boxed.name)
+        } else {
+            None
+        }
     }
+
     pub fn last_worker(&self) -> Option<(String, String)> {
-        if self.grade.as_ref().is_none() {
-            return None;
+        let mut current = self.grade.as_ref();
+
+        while let Some(worker) = current {
+            if worker.next.is_none() {
+                return Some((worker.role.clone(), worker.name.clone()));
+            }
+            current = worker.next.as_ref();
         }
-        if let Some(worker) = self.grade.as_ref() {
-            return Some((worker.name.clone(), worker.role.clone()));
-        }
+
         None
     }
 }
