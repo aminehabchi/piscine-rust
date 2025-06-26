@@ -7,12 +7,12 @@ pub fn transform_and_save_on_heap(s: String) -> Box<Vec<u32>> {
 
         let last = part_str.pop();
         if last == Some('k') {
-            arr.push(part_str.parse::<u32>().unwrap_or(0) * 1000);
+            arr.push((part_str.parse::<f32>().unwrap_or(0.0) * 1000.0) as u32);
         } else {
             if let Some(c) = last {
                 part_str.push(c);
             }
-            arr.push(part_str.parse::<u32>().unwrap_or(0));
+            arr.push(part_str.parse::<f32>().unwrap_or(0.0) as u32);
         }
     }
 
