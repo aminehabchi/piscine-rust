@@ -23,20 +23,12 @@ impl WorkEnvironment {
         let mut new_worker = Worker {
             role,
             name,
-            next: Box::new(None),
+            next:Box::new(self.grade.take()),
         };
 
-        if self.grade.as_ref().is_none() {
-            self.grade = Box::new(Some(new_worker));
-            return;
-        }
-
-        new_worker.next = std::mem::replace(&mut self.grade, Box::new(None));
         self.grade = Box::new(Some(new_worker));
     }
     pub fn remove_worker(&mut self) -> Option<String> {
-     
-      
         self.grade.take().map(|node| {
             let name = node.name.clone();
             self.grade = node.next;
