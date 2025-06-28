@@ -36,7 +36,7 @@ impl<'a> Tracker<'a> {
             );
         } else {
             self.logger.info(
-                &format!("you are using up to {}% of your quota.", (percentage * 100.0) as usize)
+                &format!("you are using up to {}% of your quota", (percentage * 100.0) as usize)
             );
         }
     }
