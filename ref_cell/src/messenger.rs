@@ -19,7 +19,7 @@ impl<'a> Tracker<'a> {
     pub fn set_value(&self, tracker: &Rc<usize>) {
         let count = Rc::strong_count(tracker);
         let percentage = (count as f32 / self.max as f32) * 100.0;
-        let rounded = percentage.round() as usize;
+        let rounded = percentage as usize;
 
         if percentage >= 100.0 {
             self.logger.error("you are over your quota!");
@@ -39,7 +39,7 @@ impl<'a> Tracker<'a> {
     pub fn peek(&self, tracker: &Rc<usize>) {
         let count = Rc::strong_count(tracker);
         let percentage = (count as f32 / self.max as f32) * 100.0;
-        let msg = format!("you are using up to {}% of your quota", percentage.round() as usize);
+        let msg = format!("you are using up to {}% of your quota", percentage as usize);
         self.logger.info(&msg);
     }
 }
