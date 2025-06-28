@@ -28,7 +28,7 @@ impl Logger for Worker {
     }
 
     fn info(&self, msg: &str) {
-        self.all_messages.borrow_mut().push(format!("Error: {}", msg).to_string());
+        self.all_messages.borrow_mut().push(format!("Info: {}", msg).to_string());
         self.mapped_messages.borrow_mut().insert("Info".to_string(), msg.to_string());
     }
 
