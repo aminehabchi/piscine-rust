@@ -24,7 +24,7 @@ impl Worker {
 impl Logger for Worker {
     fn warning(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Warning".to_string(), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("{}", msg));
+        self.all_messages.borrow_mut().push(format!("Warning: {}", msg));
     }
     fn info(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Info".to_string(), msg.to_string());
@@ -32,6 +32,6 @@ impl Logger for Worker {
     }
     fn error(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Error".to_string(), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("{}", msg));
+        self.all_messages.borrow_mut().push(format!("Error: {}", msg));
     }
 }
