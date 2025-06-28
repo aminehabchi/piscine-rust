@@ -29,7 +29,7 @@ impl Logger for Worker {
 
     fn info(&self, msg: &str) {
         self.mapped_messages.borrow_mut().insert("Info".to_string(), msg.to_string());
-        self.all_messages.borrow_mut().push(format!("Info++++: {}", msg));
+        self.all_messages.borrow_mut().push(format!("Info: {}", msg));
     }
 
     fn error(&self, msg: &str) {
