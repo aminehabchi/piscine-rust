@@ -8,7 +8,7 @@ pub trait Logger {
 }
 
 pub struct Tracker<'a> {
-    pub logger: &'a dyn Logger, // trait object needs lifetime
+    pub logger: &'a dyn Logger,
     pub value: usize,
     pub max: usize,
 }
@@ -22,9 +22,7 @@ impl<'a> Tracker<'a> {
         }
     }
 
-    // You want to update value based on the Rc<RefCell<usize>>
-    pub fn set_value(&self, tracker: &Rc<RefCell<usize>>) {
-         // update internal value from tracker
+    pub fn set_value(&self, tracker: &Rc<usize>) {
 
         let percentage: f32 = (Rc::strong_count(tracker) as f32) / (self.max as f32);
 
@@ -44,7 +42,7 @@ impl<'a> Tracker<'a> {
         }
     }
 
-    pub fn peek(&self, tracker: &Rc<RefCell<usize>>) {
+    pub fn peek(&self, tracker: &Rc<usize>) {
         let percentage: f32 = (Rc::strong_count(tracker) as f32) / (self.max as f32);
         let msg = format!(
             "Info: you are using up to {}% of your quota",

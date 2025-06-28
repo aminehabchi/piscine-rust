@@ -6,7 +6,7 @@ pub mod messenger;
 pub use messenger::*;
 
 pub struct Worker {
-    pub track_value: Rc<RefCell<usize>>,
+    pub track_value: Rc<usize>,
     pub mapped_messages: RefCell<HashMap<String, String>>,
     pub all_messages: RefCell<Vec<String>>,
 }
@@ -14,7 +14,7 @@ pub struct Worker {
 impl Worker {
     pub fn new(track_value: usize) -> Self {
         Worker {
-            track_value: Rc::new(RefCell::new(track_value)),
+            track_value: Rc::new(track_value),
             mapped_messages: RefCell::new(HashMap::new()),
             all_messages: RefCell::new(Vec::new()),
         }
