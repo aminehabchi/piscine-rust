@@ -5,25 +5,29 @@ pub struct Collatz {
 }
 
 impl Iterator for Collatz {
-    type Item = Collatz;
+    type Item = u64;
 
     fn next(&mut self) -> Option<Self::Item> {
-        if !self.started {
-            self.started = true;
-            return Some(*self);
-        }
-
-        if self.v <= 1 {
+        if self.v == 1 {
             return None;
         }
 
-        if self.v % 2 == 0 {
-            self.v /= 2;
+        if !self.started {
+            self.started = true;
         } else {
-            self.v = self.v * 3 + 1;
+            self.v = if self.v % 2 == 0 {
+                self.v / 2
+            } else {
+                self.v * 3 + 1
+            };
         }
 
-        Some(self.clone())
+        // after transformation
+        if self.v == 1 {
+            None
+        } else {
+            Some(self.v)
+        }
     }
 }
 
