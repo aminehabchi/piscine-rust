@@ -1,4 +1,4 @@
-#[derive(Copy, Clone)]
+#[derive(Copy, PartialEq, Eq, Clone)]
 pub struct Collatz {
     pub v: u64,
 }
@@ -28,6 +28,7 @@ impl Collatz {
 }
 
 pub fn collatz(m: u64) -> usize {
+
     let mut n = m as u128;
     let mut steps: u64 = 0;
     while n > 1 {
