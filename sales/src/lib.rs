@@ -45,7 +45,8 @@ impl Cart {
         let total: f32 = r.iter().sum();
         let pers = r[0] / total;
         for i in 0..r.len() {
-            r[i] = (r[i] * (1.0 - pers) * 100.0).round() / 100.0;
+            r[i] = r[i] - r[i] * pers;
+            r[i] = (r[i] * 100.0).round() / 100.0;
         }
         self.receipt = r;
         self.receipt.clone()
