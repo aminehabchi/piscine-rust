@@ -1,11 +1,18 @@
-#[derive(Copy, PartialEq, Eq, Clone)]
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
 pub struct Collatz {
     pub v: u64,
+    started: bool,
 }
 
 impl Iterator for Collatz {
     type Item = Collatz;
+
     fn next(&mut self) -> Option<Self::Item> {
+        if !self.started {
+            self.started = true;
+            return Some(*self); // include starting value
+        }
+
         if self.v <= 1 {
             return None;
         }
@@ -15,22 +22,16 @@ impl Iterator for Collatz {
         } else {
             self.v = self.v * 3 + 1;
         }
-        Some(Collatz { v: self.v })
+
+        Some(self.clone())
     }
 }
 
 impl Collatz {
     pub fn new(v: u64) -> Self {
-        Collatz {
-            v: v * 2,
-        }
+        Collatz { v, started: false }
     }
 }
-
 pub fn collatz(m: u64) -> usize {
-    let a = Collatz::new(m).count();
-    if a == 0 {
-        return 0;
-    }
-    a - 1
+    Collatz::new(m).count()-1
 }
