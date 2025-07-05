@@ -4,9 +4,9 @@ pub struct Collatz {
 }
 
 impl Iterator for Collatz {
-    type Item = u64;
+    type Item = Collatz;
     fn next(&mut self) -> Option<Self::Item> {
-        if self.v == 1 {
+        if self.v <= 1 {
             return None;
         }
 
@@ -15,7 +15,7 @@ impl Iterator for Collatz {
         } else {
             self.v = self.v * 3 + 1;
         }
-        Some(self.v)
+        Some(Collatz { v: self.v })
     }
 }
 
@@ -28,7 +28,6 @@ impl Collatz {
 }
 
 pub fn collatz(m: u64) -> usize {
-
     let mut n = m as u128;
     let mut steps: u64 = 0;
     while n > 1 {
