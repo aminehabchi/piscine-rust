@@ -10,7 +10,7 @@ impl Iterator for Collatz {
     fn next(&mut self) -> Option<Self::Item> {
         if !self.started {
             self.started = true;
-            return Some(*self); // include starting value
+            return Some(*self);
         }
 
         if self.v <= 1 {
@@ -33,5 +33,15 @@ impl Collatz {
     }
 }
 pub fn collatz(m: u64) -> usize {
-    Collatz::new(m).count()
+    let mut n = m as u128;
+    let mut steps: u64 = 0;
+    while n > 1 {
+        if n % 2 == 0 {
+            n /= 2;
+        } else {
+            n = n * 3 + 1;
+        }
+        steps += 1;
+    }
+    steps as usize
 }
