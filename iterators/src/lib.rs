@@ -22,7 +22,7 @@ impl Iterator for Collatz {
 impl Collatz {
     pub fn new(v: u64) -> Self {
         Collatz {
-            v,
+            v: v * 2,
         }
     }
 }
