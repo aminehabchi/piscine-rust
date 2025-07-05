@@ -5,7 +5,7 @@ pub struct Collatz {
 }
 
 impl Iterator for Collatz {
-    type Item = u64;
+    type Item = Collatz;
 
     fn next(&mut self) -> Option<Self::Item> {
         if self.v == 1 {
@@ -15,18 +15,13 @@ impl Iterator for Collatz {
         if !self.started {
             self.started = true;
         } else {
-            self.v = if self.v % 2 == 0 {
-                self.v / 2
-            } else {
-                self.v * 3 + 1
-            };
+            self.v = if self.v % 2 == 0 { self.v / 2 } else { self.v * 3 + 1 };
         }
 
-        // after transformation
         if self.v == 1 {
             None
         } else {
-            Some(self.v)
+            Some(self.clone())
         }
     }
 }
