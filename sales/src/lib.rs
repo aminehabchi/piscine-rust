@@ -42,8 +42,13 @@ impl Cart {
             r.push(p.1);
         }
         r.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        let n = r.len() / 3;
         let total: f32 = r.iter().sum();
-        let pers = r[0] / total;
+        let mut total_min = 0.0;
+        for i in 0..n {
+            total_min += r[i];
+        }
+        let pers = (total_min) / total;
         for i in 0..r.len() {
             r[i] = r[i] - r[i] * pers;
             r[i] = (r[i] * 100.0).round() / 100.0;
