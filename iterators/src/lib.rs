@@ -33,5 +33,5 @@ impl Collatz {
     }
 }
 pub fn collatz(m: u64) -> usize {
-    Collatz::new(m).count()-1
+    Collatz::new(m).count()
 }
