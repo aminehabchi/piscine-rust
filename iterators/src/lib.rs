@@ -22,11 +22,15 @@ impl Iterator for Collatz {
 impl Collatz {
     pub fn new(v: u64) -> Self {
         Collatz {
-            v,
+            v: v * 2,
         }
     }
 }
 
 pub fn collatz(m: u64) -> usize {
-    Collatz::new(m).count()
+    let a = Collatz::new(m).count();
+    if a == 0 {
+        return 0;
+    }
+    a - 1
 }
