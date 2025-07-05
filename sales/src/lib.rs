@@ -48,7 +48,7 @@ impl Cart {
         for i in 0..n {
             total_min += r[i];
         }
-        let pers = (total_min) / total;
+        let pers = total_min / total;
         for i in 0..r.len() {
             r[i] = r[i] - r[i] * pers;
             r[i] = (r[i] * 100.0).round() / 100.0;
