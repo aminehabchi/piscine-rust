@@ -27,22 +27,31 @@ impl ThrowObject {
 fn round_one_decimal(n: f64) -> f64 {
     (n * 10.0).round() / 10.0
 }
-
 impl Iterator for ThrowObject {
     type Item = ThrowObject;
-    fn next(&mut self) -> Option<Self::Item> {
-        if self.actual_position.y <= 0.0 {
-            return None;
-        }
-        self.time = self.time + 1.0;
-        self.actual_velocity.y = self.init_velocity.y - 9.8 * self.time;
 
-        self.actual_position.y = self.init_position.y - (1.0 / 2.0) * 9.8 * self.time * self.time;
+    fn next(&mut self) -> Option<Self::Item> {
+        self.time += 1.0;
+
+        self.actual_velocity.x = self.init_velocity.x;
+        self.actual_velocity.x = (self.actual_velocity.x * 10.0).round() / 10.0;
+
+        self.actual_velocity.y = self.init_velocity.y - 9.8 * self.time;
         self.actual_velocity.y = (self.actual_velocity.y * 10.0).round() / 10.0;
+
+        self.actual_position.x = self.init_position.x + self.init_velocity.x * self.time;
+        self.actual_position.x = (self.actual_position.x * 10.0).round() / 10.0;
+
+        self.actual_position.y =
+            self.init_position.y +
+            self.init_velocity.y * self.time -
+            0.5 * 9.8 * self.time * self.time;
         self.actual_position.y = (self.actual_position.y * 10.0).round() / 10.0;
-        if self.actual_position.y <= 0.0 {
+
+        if self.actual_position.y <= 0.0 && self.time > 0.0 {
             return None;
         }
+
         Some(self.clone())
     }
 }
