@@ -7,8 +7,8 @@ fn main() {
 
 	let matrix_1: Matrix<u32> = Matrix(vec![vec![0, 1], vec![0, 0]]);
 	let matrix_2: Matrix<u32> = Matrix(vec![vec![0, 0], vec![1, 0]]);
-	// let mult = matrix_1.clone() * matrix_2.clone();
-	// println!("{:?}", mult);
+	let mult = matrix_1.clone() * matrix_2.clone();
+	println!("{:?}", mult);
 	println!("{:?}", matrix_1.number_of_cols());
 	println!("{:?}", matrix_2.number_of_rows());
 }
